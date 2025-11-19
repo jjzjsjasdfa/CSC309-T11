@@ -34,13 +34,14 @@ export const AuthProvider = ({ children }) => {
             },
           });
 
+          const data = await res.json();
+
           if (!res.ok) {
             localStorage.removeItem("token");
             setUser(null);
-            return res.message;
+            return data.message;
           }
 
-          const data = await res.json();
           setUser(data);
 
         } catch (err) {
@@ -81,11 +82,11 @@ export const AuthProvider = ({ children }) => {
           body: JSON.stringify({ username, password }),
         });
 
-        if (!res.ok) {
-          return res.message;
-        }
-
         const data = await res.json();
+
+        if (!res.ok) {
+          return data.message;
+        }
 
         // 1
         localStorage.setItem("token", data.token);
@@ -128,7 +129,8 @@ export const AuthProvider = ({ children }) => {
         });
 
         if(!res.ok){
-          return res.message;
+          const data = await res.json();
+          return data.message;
         }else{
           navigate("/success");
         }
