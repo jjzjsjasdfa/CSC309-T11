@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
             return data.message;
           }
 
-          setUser(data);
+          setUser(data.user);
 
         } catch (err) {
           console.error("Failed to fetch user:", err);
@@ -99,7 +99,7 @@ export const AuthProvider = ({ children }) => {
           },
         });
         const data1 = await res1.json();
-        setUser(data1);
+        setUser(data1.user);
 
         // 3
         navigate("/profile");
